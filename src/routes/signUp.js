@@ -25,12 +25,16 @@ const signUpRoute = async (req, res) => {
       res.end();
       return;
     }
+    fs.mkdir(`../../src/db/autonom`, { recursive: true }, err => {
+      if (err) throw err;
+    });
     const filePath = path.join(
       __dirname,
       "../../",
       "src/",
       "db/",
       "users/",
+      // `${user.username}/`,
       `${user.username}.json`
     );
     fs.writeFile(filePath, body, err => {
