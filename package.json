@@ -10,9 +10,17 @@
   "license": "ISC",
   "dependencies": {
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.19.4"
   },
   "devDependencies": {},
   "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreyMad/food-delivery-server-goit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AndreyMad/food-delivery-server-goit/issues"
+  },
+  "homepage": "https://github.com/AndreyMad/food-delivery-server-goit#readme",
   "description": ""
 }
