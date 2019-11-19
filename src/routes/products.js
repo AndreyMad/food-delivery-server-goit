@@ -1,8 +1,8 @@
 const products = require('../db/products/all-products.json');
 
-const productsRoute=(reauest,response)=>{
-    response.writeHead(200, { "Content-Type": "application/json" });
-    response.write(JSON.stringify(products));
-    response.end()
+const productsRoute=(req,res)=>{
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.write(JSON.stringify(products));
+    res.end()
 }
 module.exports=productsRoute;
