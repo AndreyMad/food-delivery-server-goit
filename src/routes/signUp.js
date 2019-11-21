@@ -25,30 +25,40 @@ const signUpRoute = async (req, res) => {
       res.end();
       return;
     }
-    fs.mkdir(`../../src/db/autonom`, { recursive: true }, err => {
-      if (err) throw err;
-    });
-    const filePath = path.join(
-      __dirname,
-      "../../",
-      "src/",
-      "db/",
-      "users/",
-      // `${user.username}/`,
-      `${user.username}.json`
-    );
-    fs.writeFile(filePath, body, err => {
-      if (err) {
-        throw err;
-      }
-      const userBody = {
-        status: "success",
-        user: JSON.parse(body)
-      };
-      res.writeHead(201, { "Content-Type": "application/json" });
-      res.write(JSON.stringify(userBody));
-      res.end();
-    });
+
+    function createUserDir(userName) {
+      fs.mkdir(`./src/db/users/${userName}`, { recursive: true }, err => {
+        if (err) throw err;
+      });
+    }
+
+    try {
+      createUserDir(user.username);
+      const filePath = path.join(
+        __dirname,
+        "../../",
+        "src/",
+        "db/",
+        "users/",
+        `${user.username}/`,
+        `${user.username}.json`
+      );
+      fs.writeFile(filePath, body, err => {
+        if (err) {
+          throw err;
+        }
+        const userBody = {
+          status: "success",
+          user: JSON.parse(body)
+        };
+        res.writeHead(201, { "Content-Type": "application/json" });
+        res.write(JSON.stringify(userBody));
+        res.end();
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
+// };
 module.exports = signUpRoute;
