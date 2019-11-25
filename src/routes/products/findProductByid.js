@@ -38,6 +38,11 @@ const findProdByIdRoute = async (req, res) => {
                 status: "no such products",
                 products: []
             };
+            res.writeHead(204, {
+                "Content-Type": "application/json"
+            });
+            res.write(JSON.stringify(bodyResponse));
+            res.end();
         }
     });
     res.writeHead(200, {
