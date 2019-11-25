@@ -13,6 +13,8 @@ const productsRoute = (req, res) => {
         getAllProducts(req, res)
     } else if (productIds.includes(idFromReq)) {
         findByUrlIdRoute(req, res)
+    } else if (req.method === 'GET' && req.url.includes('ids')) {
+        findProductByidproductsRoute(req, res)
     }
 
 }
