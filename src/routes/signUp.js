@@ -8,13 +8,14 @@ const signUpRoute = async (req, res) => {
     return;
   } else {
     let body = "";
-    await req.on("data", function (data) {
+    await req.on("data", function(data) {
       body += data;
     });
     const user = JSON.parse(body);
 
     //validate reqData
-    const isValidReqData = !validator.isEmpty(user.username) &&
+    const isValidReqData =
+      !validator.isEmpty(user.username) &&
       validator.isMobilePhone(user.telephone) &&
       validator.isByteLength(user.password, {
         min: 5
@@ -31,11 +32,15 @@ const signUpRoute = async (req, res) => {
     }
 
     function createUserDir(userName) {
-      fs.mkdir(`./src/db/users/${userName}`, {
-        recursive: true
-      }, err => {
-        if (err) throw err;
-      });
+      fs.mkdir(
+        `./src/db/users/${userName}`,
+        {
+          recursive: true
+        },
+        err => {
+          if (err) throw err;
+        }
+      );
     }
 
     try {
@@ -68,5 +73,5 @@ const signUpRoute = async (req, res) => {
     }
   }
 };
-// };
+
 module.exports = signUpRoute;
