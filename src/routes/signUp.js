@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const validator = require("validator");
+
 const signUpRoute = async (req, res) => {
   if (req.method !== "POST") {
     console.log("wrong method");
@@ -16,20 +17,30 @@ const signUpRoute = async (req, res) => {
     const isValidReqData =
       !validator.isEmpty(user.username) &&
       validator.isMobilePhone(user.telephone) &&
-      validator.isByteLength(user.password, { min: 5 }) &&
+      validator.isByteLength(user.password, {
+        min: 5
+      }) &&
       validator.isEmail(user.email);
 
     if (!isValidReqData) {
-      res.writeHead(400, { "Content-Type": "text/plain" });
+      res.writeHead(400, {
+        "Content-Type": "text/plain"
+      });
       res.write("Error: Bad Request");
       res.end();
       return;
     }
 
     function createUserDir(userName) {
-      fs.mkdir(`./src/db/users/${userName}`, { recursive: true }, err => {
-        if (err) throw err;
-      });
+      fs.mkdir(
+        `./src/db/users/${userName}`,
+        {
+          recursive: true
+        },
+        err => {
+          if (err) throw err;
+        }
+      );
     }
 
     try {
@@ -51,7 +62,9 @@ const signUpRoute = async (req, res) => {
           status: "success",
           user: JSON.parse(body)
         };
-        res.writeHead(201, { "Content-Type": "application/json" });
+        res.writeHead(201, {
+          "Content-Type": "application/json"
+        });
         res.write(JSON.stringify(userBody));
         res.end();
       });
@@ -60,5 +73,5 @@ const signUpRoute = async (req, res) => {
     }
   }
 };
-// };
+
 module.exports = signUpRoute;
