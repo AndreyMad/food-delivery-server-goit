@@ -12,7 +12,7 @@ const findProdByIdRoute = async (req, res) => {
   let bodyResponse;
   let arrayToResponse = [];
 
-  idsArr.map(el => {
+  idsArr.forEach(el => {
     const productToResponse = products.find(elem => {
       return elem.id === +el;
     });
@@ -24,23 +24,20 @@ const findProdByIdRoute = async (req, res) => {
         name: productToResponse.name,
         description: productToResponse.description
       };
+
       arrayToResponse.push(obj);
+      console.log(arrayToResponse);
     }
-    if (arrayToResponse.length > 1) {
-      bodyResponse = {
-        status: "success",
-        products: arrayToResponse
-      };
-    } else {
+    if (arrayToResponse.length === 0) {
       bodyResponse = {
         status: "no such products",
         products: []
       };
-      res.writeHead(204, {
-        "Content-Type": "application/json"
-      });
-      res.write(JSON.stringify(bodyResponse));
-      res.end();
+    } else {
+      bodyResponse = {
+        status: "succes",
+        products: arrayToResponse
+      };
     }
   });
   res.writeHead(200, {
